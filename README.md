@@ -15,4 +15,4 @@
 ![](https://img.shields.io/badge/Database-MySQL-informational?style=flat&logo=MySQL&logoColor=white&color=2bbc8a)
 ![](https://img.shields.io/badge/Framework-React_JS-informational?style=flat&logo=react&logoColor=white&color=2bbc8a)
 
-### Deployed on Heroku - https://jobify-backend.herokuapp.com/
+#### Deployed on Heroku - https://jobify-backend.herokuapp.com
