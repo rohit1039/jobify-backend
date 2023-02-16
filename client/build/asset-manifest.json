@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.6a05df51.css",
+    "main.js": "/static/js/main.d1c36838.js",
+    "static/media/job-seeker.png": "/static/media/job-seeker.ac63bb7f964e8d535707.png",
+    "static/media/not-found.svg": "/static/media/not-found.4268f7a8e4c40c485304fa2f2d05a908.svg",
+    "static/media/logo.svg": "/static/media/logo.11bce0d0d858b3ae444debb63e6d9063.svg",
+    "index.html": "/index.html",
+    "main.6a05df51.css.map": "/static/css/main.6a05df51.css.map",
+    "main.d1c36838.js.map": "/static/js/main.d1c36838.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6a05df51.css",
+    "static/js/main.d1c36838.js"
+  ]
+}
