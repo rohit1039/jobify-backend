@@ -14,3 +14,5 @@
 ![](https://img.shields.io/badge/Framework-Spring_Boot-informational?style=flat&logo=SpringBoot&logoColor=white&color=2bbc8a)
 ![](https://img.shields.io/badge/Database-MySQL-informational?style=flat&logo=MySQL&logoColor=white&color=2bbc8a)
 ![](https://img.shields.io/badge/Framework-React_JS-informational?style=flat&logo=react&logoColor=white&color=2bbc8a)
+
+### Deployed on Heroku - https://jobify-backend.herokuapp.com/
