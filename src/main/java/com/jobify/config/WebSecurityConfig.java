@@ -30,7 +30,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 public class WebSecurityConfig {
 
     public static final String[] PUBLIC_URLS = {"/users/**", "/jobs/**", "/v3/api-docs", "/v2/api-docs",
-            "/swagger-resources/**", "/swagger-ui/**", "/webjars/**"};
+                                                "/swagger-resources/**", "/swagger-ui/**", "/webjars/**"};
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
@@ -101,7 +101,8 @@ public class WebSecurityConfig {
      * @throws Exception
      */
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration authenticationConfiguration) throws Exception {
 
         return authenticationConfiguration.getAuthenticationManager();
     }

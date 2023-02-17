@@ -52,7 +52,8 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public List<UserDTO> getAllUsers(int pageNumber, int pageSize, String sortByUserId, String sortByLocation, String sortByUsername, String sortDir) {
+    public List<UserDTO> getAllUsers(int pageNumber, int pageSize, String sortByUserId, String sortByLocation,
+                                     String sortByUsername, String sortDir) {
 
         Sort sort = (sortDir.equalsIgnoreCase("asc")) ?
                     Sort.by(sortByUserId, sortByLocation, sortByUsername)
@@ -123,7 +124,8 @@ public class UserServiceImpl implements UserService {
             return null;
         }
         User userInDB = this.userRepo.findById(userId)
-                                     .orElseThrow(() -> new UsernameNotFoundException("User not found with ID: " + userId));
+                                     .orElseThrow(
+                                             () -> new UsernameNotFoundException("User not found with ID: " + userId));
 
         userInDB.setFirstName(userDTO.getFirstName());
         userInDB.setLastName(userDTO.getLastName());

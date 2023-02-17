@@ -64,8 +64,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 LOGGER.warn("{}", e.getLocalizedMessage());
             }
 
-        }
-        else {
+        } else {
             LOGGER.warn("{}", "JWT token doesn't starts with Bearer");
         }
 
@@ -85,8 +84,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext()
                                      .setAuthentication(usernamePasswordAuthenticationToken);
 
-            }
-            else {
+            } else {
                 LOGGER.error("{}", "Invalid jwt token");
             }
         }

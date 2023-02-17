@@ -39,7 +39,8 @@ import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 
-@RestController @Tag(name = "Jobify User Service", description = "to perform all CRUD operations")
+@RestController
+@Tag(name = "Jobify User Service", description = "to perform all CRUD operations")
 public class UserController {
 
     private static final Logger LOGGER = LogManager.getLogger(UserController.class.getName());
@@ -57,7 +58,9 @@ public class UserController {
      * @param tokenHelper
      * @param modelMapper
      */
-    public UserController(UserService userService, AuthenticationManager authenticationManager, CustomUserDetailsService customUserDetailsService, TokenHelper tokenHelper, ModelMapper modelMapper) {
+    public UserController(UserService userService, AuthenticationManager authenticationManager,
+                          CustomUserDetailsService customUserDetailsService, TokenHelper tokenHelper,
+                          ModelMapper modelMapper) {
 
         this.userService = userService;
         this.authenticationManager = authenticationManager;
@@ -70,14 +73,10 @@ public class UserController {
      * @param userDTO
      * @return
      */
-    @Operation(summary = "Register a new user", description = "A POST request to register users",
-               tags = {"Jobify User Service"})
-    @ApiResponses(
-            value = {@ApiResponse(responseCode = "201", description = "Successfully created the user"), @ApiResponse(
-                    responseCode = "400", description = "Input Validation Failed"), @ApiResponse(responseCode = "500",
-                                                                                                 description = "Some Exception Occurred"), @ApiResponse(
-                    responseCode = "409", description = "User Already Exists")})
-    @PostMapping("/users/register") public ResponseEntity<?> createUser(@Valid @RequestBody UserDTO userDTO) {
+    @Operation(summary = "Register a new user", description = "A POST request to register users", tags = {"Jobify User Service"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "201", description = "Successfully created the user"), @ApiResponse(responseCode = "400", description = "Input Validation Failed"), @ApiResponse(responseCode = "500", description = "Some Exception Occurred"), @ApiResponse(responseCode = "409", description = "User Already Exists")})
+    @PostMapping("/users/register")
+    public ResponseEntity<?> createUser(@Valid @RequestBody UserDTO userDTO) {
 
         HttpStatus httpStatus = checkEmailDuplicate(userDTO).getStatusCode();
 
@@ -90,26 +89,23 @@ public class UserController {
 
             return new ResponseEntity<>(userApiResponse, HttpStatus.CREATED);
         }
-        return new ResponseEntity<>("User already exists with email: " + userDTO.getEmailID(), HttpStatus.valueOf(httpStatus.value()));
+        return new ResponseEntity<>("User already exists with email: " + userDTO.getEmailID(),
+                                    HttpStatus.valueOf(httpStatus.value()));
     }
 
     /**
      * @param loginDTO
      * @return
      */
-    @Operation(summary = "User login", description = "A POST request for logging-in a user",
-               tags = {"Jobify User Service"})
-    @ApiResponses(
-            value = {@ApiResponse(responseCode = "200", description = "Successfully logged-in the user"), @ApiResponse(
-                    responseCode = "403", description = "Log-in unsuccessful"), @ApiResponse(responseCode = "400",
-                                                                                             description = "Input Validation Failed"), @ApiResponse(
-                    responseCode = "500", description = "Some Exception Occurred")})
+    @Operation(summary = "User login", description = "A POST request for logging-in a user", tags = {"Jobify User Service"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Successfully logged-in the user"), @ApiResponse(responseCode = "403", description = "Log-in unsuccessful"), @ApiResponse(responseCode = "400", description = "Input Validation Failed"), @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
     @PostMapping("/users/login")
     public ResponseEntity<JwtAuthResponse> userLogin(@Valid @RequestBody LoginDTO loginDTO) {
 
         Authentication authentication;
         try {
-            authentication = this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getEmailID(), loginDTO.getPassword()));
+            authentication = this.authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginDTO.getEmailID(), loginDTO.getPassword()));
 
         }
         catch (BadCredentialsException e) {
@@ -124,9 +120,13 @@ public class UserController {
 
         UserDTO userDTO = this.modelMapper.map(user, UserDTO.class);
 
-        JwtAuthResponse response = JwtAuthResponse.builder().token(token).emailID(userDTO.getEmailID())
-                                                  .location(userDTO.getLocation()).age(userDTO.getAge())
-                                                  .userId(userDTO.getUserID()).firstName(userDTO.getFirstName())
+        JwtAuthResponse response = JwtAuthResponse.builder()
+                                                  .token(token)
+                                                  .emailID(userDTO.getEmailID())
+                                                  .location(userDTO.getLocation())
+                                                  .age(userDTO.getAge())
+                                                  .userId(userDTO.getUserID())
+                                                  .firstName(userDTO.getFirstName())
                                                   .lastName(userDTO.getLastName())
                                                   .fullName(userDTO.getFirstName() + " " + userDTO.getLastName())
                                                   .build();
@@ -137,25 +137,22 @@ public class UserController {
     /**
      * @return
      */
-    @Operation(summary = "Get all users", description = "A GET request to get all users",
-               tags = {"Jobify User Service"})
-    @ApiResponses(
-            value = {@ApiResponse(responseCode = "200", description = "Successfully found all the users"), @ApiResponse(
-                    responseCode = "404", description = "No Users Found"), @ApiResponse(responseCode = "500",
-                                                                                        description = "Some Exception Occurred")})
+    @Operation(summary = "Get all users", description = "A GET request to get all users", tags = {"Jobify User Service"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Successfully found all the users"), @ApiResponse(responseCode = "404", description = "No Users Found"), @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
     @GetMapping("/users/all")
-    public ResponseEntity<GetAllUsersWithPagination> getAllUsers(@RequestParam(required = false, defaultValue = "1",
-                                                                               value = "pageNumber") int pageNumber, @RequestParam(
-            required = false, defaultValue = "5", value = "pageSize") int pageSize, @RequestParam(required = false,
-                                                                                                  defaultValue = "userId",
-                                                                                                  value = "sortBy") String sortByUserId, @RequestParam(
-            required = false, defaultValue = "location", value = "sortBy") String sortByLocation, @RequestParam(
-            required = false, defaultValue = "emailID", value = "sortBy") String sortByUsername, @RequestParam(
-            required = false, defaultValue = "asc", value = "sortDir") String sortDir) {
+    public ResponseEntity<GetAllUsersWithPagination> getAllUsers(
+            @RequestParam(required = false, defaultValue = "1", value = "pageNumber") int pageNumber,
+            @RequestParam(required = false, defaultValue = "5", value = "pageSize") int pageSize,
+            @RequestParam(required = false, defaultValue = "userId", value = "sortBy") String sortByUserId,
+            @RequestParam(required = false, defaultValue = "location", value = "sortBy") String sortByLocation,
+            @RequestParam(required = false, defaultValue = "emailID", value = "sortBy") String sortByUsername,
+            @RequestParam(required = false, defaultValue = "asc", value = "sortDir") String sortDir) {
 
-        List<UserDTO> userDTO = this.userService.getAllUsers(pageNumber, pageSize, sortByUserId, sortByLocation, sortByUsername, sortDir);
+        List<UserDTO> userDTO = this.userService.getAllUsers(pageNumber, pageSize, sortByUserId, sortByLocation,
+                                                             sortByUsername, sortDir);
 
-        List<UserApiResponse> apiResponse = userDTO.stream().map(u -> this.modelMapper.map(u, UserApiResponse.class))
+        List<UserApiResponse> apiResponse = userDTO.stream()
+                                                   .map(u -> this.modelMapper.map(u, UserApiResponse.class))
                                                    .collect(Collectors.toList());
 
         GetAllUsersWithPagination getAllUsersWithPagination = new GetAllUsersWithPagination();
@@ -176,14 +173,11 @@ public class UserController {
      * @param searchVal
      * @return
      */
-    @Operation(summary = "Search user by keyword", description = "A GET request to search users",
-               tags = {"Jobify User Service"})
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Successfully found user"), @ApiResponse(
-            responseCode = "404", description = "User not found"), @ApiResponse(responseCode = "500",
-                                                                                description = "Some Exception Occurred")})
+    @Operation(summary = "Search user by keyword", description = "A GET request to search users", tags = {"Jobify User Service"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Successfully found user"), @ApiResponse(responseCode = "404", description = "User not found"), @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
     @GetMapping("/users/search")
-    public ResponseEntity<Map<String, List<UserApiResponse>>> searchUserBy(@RequestParam(value = "search",
-                                                                                         required = false) String searchVal) {
+    public ResponseEntity<Map<String, List<UserApiResponse>>> searchUserBy(
+            @RequestParam(value = "search", required = false) String searchVal) {
 
         List<UserDTO> userDTO = this.userService.searchByAllFields(searchVal);
 
@@ -202,11 +196,8 @@ public class UserController {
      * @param emailID
      * @return
      */
-    @Operation(summary = "Get user by username", description = "A GET request to get user by username",
-               tags = {"Jobify User Service"})
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Successfully found user"), @ApiResponse(
-            responseCode = "404", description = "User not found"), @ApiResponse(responseCode = "500",
-                                                                                description = "Some Exception Occurred")})
+    @Operation(summary = "Get user by username", description = "A GET request to get user by username", tags = {"Jobify User Service"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Successfully found user"), @ApiResponse(responseCode = "404", description = "User not found"), @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
     @GetMapping("/users/get/{username}")
     public ResponseEntity<UserApiResponse> getUserByUsername(@PathVariable(value = "username") String emailID) {
 
@@ -221,11 +212,8 @@ public class UserController {
      * @param userId
      * @return
      */
-    @Operation(summary = "Get user by userId", description = "A GET request to get user by userId",
-               tags = {"Jobify User Service"})
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Successfully found user"), @ApiResponse(
-            responseCode = "404", description = "User not found"), @ApiResponse(responseCode = "500",
-                                                                                description = "Some Exception Occurred")})
+    @Operation(summary = "Get user by userId", description = "A GET request to get user by userId", tags = {"Jobify User Service"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Successfully found user"), @ApiResponse(responseCode = "404", description = "User not found"), @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
     @GetMapping("/users/get/user/{userId}")
     public ResponseEntity<UserApiResponse> getUserByUserId(@PathVariable(value = "userId") Integer userId) {
 
@@ -241,15 +229,11 @@ public class UserController {
      * @param id
      * @return
      */
-    @Operation(summary = "Update user by userId", description = "A PUT request to update user",
-               tags = {"Jobify User Service"})
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Successfully updated user"), @ApiResponse(
-            responseCode = "404", description = "User not found"), @ApiResponse(responseCode = "409",
-                                                                                description = "User already exists"), @ApiResponse(
-            responseCode = "500", description = "Some Exception Occurred")})
+    @Operation(summary = "Update user by userId", description = "A PUT request to update user", tags = {"Jobify User Service"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Successfully updated user"), @ApiResponse(responseCode = "404", description = "User not found"), @ApiResponse(responseCode = "409", description = "User already exists"), @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
     @PutMapping("/users/update/{userId}")
-    public ResponseEntity<?> updateUserByUserId(@Valid @RequestBody UpdateUserDTO userDTO, @PathVariable(
-            "userId") Integer id) {
+    public ResponseEntity<?> updateUserByUserId(@Valid @RequestBody UpdateUserDTO userDTO,
+                                                @PathVariable("userId") Integer id) {
 
         UpdateUserDTO updatedUser = this.userService.updatedUserByUserId(userDTO, id);
 
@@ -269,12 +253,10 @@ public class UserController {
      * @param response
      * @throws IOException
      */
-    @Operation(summary = "Export user's data in Csv",
-               description = "A GET request to download user's list in a Csv file", tags = {"Jobify User Service"})
-    @ApiResponses(
-            value = {@ApiResponse(responseCode = "200", description = "Successfully found all the users"), @ApiResponse(
-                    responseCode = "500", description = "Some Exception Occurred")})
-    @GetMapping("/users/export/csv") public void exportToCSV(HttpServletResponse response) throws IOException {
+    @Operation(summary = "Export user's data in Csv", description = "A GET request to download user's list in a Csv file", tags = {"Jobify User Service"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Successfully found all the users"), @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
+    @GetMapping("/users/export/csv")
+    public void exportToCSV(HttpServletResponse response) throws IOException {
 
         List<UserDTO> listUsers = this.userService.listAll();
         UserCsvExporter exporter = new UserCsvExporter();
@@ -285,12 +267,10 @@ public class UserController {
      * @param response
      * @throws IOException
      */
-    @Operation(summary = "Export user's data in Excel",
-               description = "A GET request to download user's list in a Excel file", tags = {"Jobify User Service"})
-    @ApiResponses(
-            value = {@ApiResponse(responseCode = "200", description = "Successfully found all the users"), @ApiResponse(
-                    responseCode = "500", description = "Some Exception Occurred")})
-    @GetMapping("/users/export/excel") public void exportToExcel(HttpServletResponse response) throws IOException {
+    @Operation(summary = "Export user's data in Excel", description = "A GET request to download user's list in a Excel file", tags = {"Jobify User Service"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Successfully found all the users"), @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
+    @GetMapping("/users/export/excel")
+    public void exportToExcel(HttpServletResponse response) throws IOException {
 
         List<UserDTO> listUsers = this.userService.listAll();
         UserExcelExporter exporter = new UserExcelExporter();
@@ -301,12 +281,10 @@ public class UserController {
      * @param response
      * @throws IOException
      */
-    @Operation(summary = "Export user's data in Pdf",
-               description = "A GET request to download user's list in a Pdf file", tags = {"Jobify User Service"})
-    @ApiResponses(
-            value = {@ApiResponse(responseCode = "200", description = "Successfully found all the users"), @ApiResponse(
-                    responseCode = "500", description = "Some Exception Occurred")})
-    @GetMapping("/users/export/pdf") public void exportToPdf(HttpServletResponse response) throws IOException {
+    @Operation(summary = "Export user's data in Pdf", description = "A GET request to download user's list in a Pdf file", tags = {"Jobify User Service"})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Successfully found all the users"), @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
+    @GetMapping("/users/export/pdf")
+    public void exportToPdf(HttpServletResponse response) throws IOException {
 
         List<UserDTO> listUsers = this.userService.listAll();
         UserPdfExporter exporter = new UserPdfExporter();

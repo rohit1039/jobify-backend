@@ -57,21 +57,20 @@ public class JobServiceImpl implements JobService {
         }
         User user = this.userRepo.findById(userId)
                                  .orElseThrow(() ->
-                                                      new UsernameNotFoundException("User with ID: " + userId + " not found to create the job!"));
+                                                      new UsernameNotFoundException(
+                                                              "User with ID: " + userId + " not found to create the job!"));
 
         jobDTO.setCreatedBy(user.getFirstName() + " " + user.getLastName());
 
         if (isNull(jobDTO.getJobType())) {
             jobDTO.setJobType(JobType.FULL_TIME);
-        }
-        else {
+        } else {
             jobDTO.setJobType(jobDTO.getJobType());
         }
 
         if (isNull(jobDTO.getStatus())) {
             jobDTO.setStatus(Status.PENDING);
-        }
-        else {
+        } else {
             jobDTO.setStatus(jobDTO.getStatus());
         }
 
@@ -179,7 +178,8 @@ public class JobServiceImpl implements JobService {
 
         User user = this.userRepo.findById(userId)
                                  .orElseThrow(() ->
-                                                      new UsernameNotFoundException("User with ID: " + userId + " not found!"));
+                                                      new UsernameNotFoundException(
+                                                              "User with ID: " + userId + " not found!"));
 
         List<Job> jobs = this.jobRepo.findByUser(user);
 
@@ -216,7 +216,8 @@ public class JobServiceImpl implements JobService {
     public List<JobDTO> getJobsByUserWithMonthlyStats(Integer userId) {
 
         User user = this.userRepo.findById(userId)
-                                 .orElseThrow(() -> new UsernameNotFoundException("User with ID: " + userId + " not found!"));
+                                 .orElseThrow(() -> new UsernameNotFoundException(
+                                         "User with ID: " + userId + " not found!"));
 
         List<Job> jobs = this.jobRepo.findByUser(user);
 
@@ -267,15 +268,13 @@ public class JobServiceImpl implements JobService {
 
             if (isNull(jobDTO.getJobType())) {
                 job.setJobType(JobType.FULL_TIME);
-            }
-            else {
+            } else {
                 job.setJobType(jobDTO.getJobType());
             }
 
             if (isNull(jobDTO.getStatus())) {
                 job.setStatus(Status.PENDING);
-            }
-            else {
+            } else {
                 job.setStatus(jobDTO.getStatus());
             }
 

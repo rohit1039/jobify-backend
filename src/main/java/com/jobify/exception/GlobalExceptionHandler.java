@@ -28,7 +28,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception,
-                                                                  HttpHeaders headers, HttpStatus status, WebRequest request) {
+                                                                  HttpHeaders headers, HttpStatus status,
+                                                                  WebRequest request) {
 
         final Map<String, String> errors = new ConcurrentHashMap<>();
 
@@ -84,8 +85,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      * @return
      */
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<ExceptionInApiResponse> handleDAOErrorException(final DataIntegrityViolationException exception,
-                                                                          final WebRequest request) {
+    public ResponseEntity<ExceptionInApiResponse> handleDAOErrorException(
+            final DataIntegrityViolationException exception,
+            final WebRequest request) {
 
         final ExceptionInApiResponse response = new ExceptionInApiResponse(LocalDateTime.now(), exception.getMessage(),
                                                                            request.getDescription(false));
@@ -99,8 +101,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      * @return
      */
     @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<ExceptionInApiResponse> handleUnAuthorizedErrorException(final BadCredentialsException exception,
-                                                                                   final WebRequest request) {
+    public ResponseEntity<ExceptionInApiResponse> handleUnAuthorizedErrorException(
+            final BadCredentialsException exception,
+            final WebRequest request) {
 
         final ExceptionInApiResponse
                 response =

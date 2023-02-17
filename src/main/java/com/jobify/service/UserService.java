@@ -9,7 +9,8 @@ public interface UserService {
 
     UserDTO registerUser(UserDTO userDTO);
 
-    List<UserDTO> getAllUsers(int pageNumber, int pageSize, String sortByUserId, String sortByLocation, String sortByUsername, String sortDir);
+    List<UserDTO> getAllUsers(int pageNumber, int pageSize, String sortByUserId, String sortByLocation,
+                              String sortByUsername, String sortDir);
 
     List<UserDTO> searchByAllFields(String searchVal);
 
