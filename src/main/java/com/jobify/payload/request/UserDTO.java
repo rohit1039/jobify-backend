@@ -24,13 +24,14 @@ public class UserDTO {
     private String lastName;
     @NotBlank
     @Email(regexp = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")
-    @Schema(description = "username of the user, should be in lowercase", required = true, example = "rohitparida0599@gmail.com")
+    @Schema(description = "username of the user, should be in lowercase", required = true,
+            example = "rohitparida0599@gmail.com")
     private String emailID;
     @NotBlank
     @Size(min = 8, max = 50)
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$@!%&*?])[A-Za-z\\d#$@!%&*?]{8,}$",
              message = "minimum 1 uppercase letter, " + "minimum 1 lowercase letter, " + "minimum 1 special character, " +
-                       "minimum 1 number, " + "minimum 8 characters ")
+                     "minimum 1 number, " + "minimum 8 characters ")
     @Schema(description = "password of the user", required = true, example = "Rohit@123")
     private String password;
     @NotBlank

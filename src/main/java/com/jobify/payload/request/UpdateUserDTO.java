@@ -26,7 +26,8 @@ public class UpdateUserDTO {
     private String lastName;
     @NotBlank
     @Email(regexp = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")
-    @Schema(description = "username of the user, should be in lowercase", required = true, example = "rohitparida0599@gmail.com")
+    @Schema(description = "username of the user, should be in lowercase", required = true,
+            example = "rohitparida0599@gmail.com")
     private String emailID;
     @NotBlank
     @Schema(description = "location of the user", required = true, example = "Bangalore")

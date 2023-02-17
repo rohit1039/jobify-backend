@@ -57,7 +57,7 @@ public class JobServiceImpl implements JobService {
         }
         User user = this.userRepo.findById(userId)
                                  .orElseThrow(() ->
-                                                new UsernameNotFoundException("User with ID: " + userId + " not found to create the job!"));
+                                                      new UsernameNotFoundException("User with ID: " + userId + " not found to create the job!"));
 
         jobDTO.setCreatedBy(user.getFirstName() + " " + user.getLastName());
 
@@ -103,7 +103,7 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public List<JobDTO> getAllJobs(int pageNumber, int pageSize, String sortByJobId, String sortByCompany,
-      String sortByPosition, String sortByJobLocation, String sortDir, Integer userId) {
+                                   String sortByPosition, String sortByJobLocation, String sortDir, Integer userId) {
 
         Sort sort = (sortDir.equalsIgnoreCase("asc")) ?
                     Sort.by(sortByJobId, sortByCompany, sortByPosition, sortByJobLocation)
@@ -131,7 +131,7 @@ public class JobServiceImpl implements JobService {
 
         List<JobDTO> jobDTOs = jobs.stream()
                                    .map(job ->
-                                          this.modelMapper.map(job, JobDTO.class))
+                                                this.modelMapper.map(job, JobDTO.class))
                                    .collect(Collectors.toList());
 
         jobDTOs = jobDTOs.stream()
@@ -152,18 +152,18 @@ public class JobServiceImpl implements JobService {
     public List<JobDTO> searchByAllFields(String searchVal) {
 
         SearchSpecificationForJobs spec1 =
-          new SearchSpecificationForJobs(new SearchCriteria("company", ":", searchVal));
+                new SearchSpecificationForJobs(new SearchCriteria("company", ":", searchVal));
 
         SearchSpecificationForJobs spec2 =
-          new SearchSpecificationForJobs(new SearchCriteria("jobLocation", ":", searchVal));
+                new SearchSpecificationForJobs(new SearchCriteria("jobLocation", ":", searchVal));
 
         SearchSpecificationForJobs spec3 =
-          new SearchSpecificationForJobs(new SearchCriteria("position", ":", searchVal));
+                new SearchSpecificationForJobs(new SearchCriteria("position", ":", searchVal));
 
         List<Job> results =
-          jobRepo.findAll(Specification.where(spec1)
-                                       .or(spec2)
-                                       .or(spec3));
+                jobRepo.findAll(Specification.where(spec1)
+                                             .or(spec2)
+                                             .or(spec3));
 
         return results.stream()
                       .map(j -> this.modelMapper.map(j, JobDTO.class))
@@ -179,7 +179,7 @@ public class JobServiceImpl implements JobService {
 
         User user = this.userRepo.findById(userId)
                                  .orElseThrow(() ->
-                                                new UsernameNotFoundException("User with ID: " + userId + " not found!"));
+                                                      new UsernameNotFoundException("User with ID: " + userId + " not found!"));
 
         List<Job> jobs = this.jobRepo.findByUser(user);
 
@@ -197,7 +197,7 @@ public class JobServiceImpl implements JobService {
 
         statsResponses = statsResponses.stream()
                                        .peek(s ->
-                                               s.setCreatedBy(createdBy))
+                                                     s.setCreatedBy(createdBy))
                                        .collect(Collectors.toList());
 
         List<StatsResponse> finalStatsResponses = statsResponses;

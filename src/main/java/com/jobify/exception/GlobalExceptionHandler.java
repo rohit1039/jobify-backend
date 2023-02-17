@@ -28,7 +28,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception,
-      HttpHeaders headers, HttpStatus status, WebRequest request) {
+                                                                  HttpHeaders headers, HttpStatus status, WebRequest request) {
 
         final Map<String, String> errors = new ConcurrentHashMap<>();
 
@@ -55,7 +55,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ExceptionInApiResponse> handleGlobalErrorException(final Exception exception,
-      final WebRequest request) {
+                                                                             final WebRequest request) {
 
         final ExceptionInApiResponse response = new ExceptionInApiResponse(LocalDateTime.now(), exception.getMessage(),
                                                                            request.getDescription(false));
@@ -70,7 +70,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(UsernameNotFoundException.class)
     public ResponseEntity<ExceptionInApiResponse> handleUserNotFoundException(final UsernameNotFoundException exception,
-      final WebRequest request) {
+                                                                              final WebRequest request) {
 
         final ExceptionInApiResponse response = new ExceptionInApiResponse(LocalDateTime.now(), exception.getMessage(),
                                                                            request.getDescription(false));
@@ -85,7 +85,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ExceptionInApiResponse> handleDAOErrorException(final DataIntegrityViolationException exception,
-      final WebRequest request) {
+                                                                          final WebRequest request) {
 
         final ExceptionInApiResponse response = new ExceptionInApiResponse(LocalDateTime.now(), exception.getMessage(),
                                                                            request.getDescription(false));
@@ -100,12 +100,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ExceptionInApiResponse> handleUnAuthorizedErrorException(final BadCredentialsException exception,
-      final WebRequest request) {
+                                                                                   final WebRequest request) {
 
         final ExceptionInApiResponse
-          response =
-          new ExceptionInApiResponse(LocalDateTime.now(), exception.getLocalizedMessage(),
-                                     request.getDescription(false));
+                response =
+                new ExceptionInApiResponse(LocalDateTime.now(), exception.getLocalizedMessage(),
+                                           request.getDescription(false));
         LOGGER.error("{}", response.getMessage());
         return new ResponseEntity<>(response, HttpStatus.FORBIDDEN);
     }
@@ -117,7 +117,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(ApiException.class)
     public ResponseEntity<ExceptionInApiResponse> handleServerErrorException(final ApiException exception,
-      final WebRequest request) {
+                                                                             final WebRequest request) {
 
         final ExceptionInApiResponse response = new ExceptionInApiResponse(LocalDateTime.now(), exception.getMessage(),
                                                                            request.getDescription(false));

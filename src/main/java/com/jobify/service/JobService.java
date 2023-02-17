@@ -11,7 +11,7 @@ public interface JobService {
     JobDTO getJobById(Integer jobId);
 
     List<JobDTO> getAllJobs(int pageNumber, int pageSize, String sortByJobId, String sortByCompany,
-      String sortByPosition, String sortByJobLocation, String sortDir, Integer userId);
+                            String sortByPosition, String sortByJobLocation, String sortDir, Integer userId);
 
     List<JobDTO> searchByAllFields(String searchVal);
 

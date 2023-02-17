@@ -94,22 +94,22 @@ public class UserServiceImpl implements UserService {
     public List<UserDTO> searchByAllFields(String searchVal) {
 
         SearchSpecificationForUsers spec1 =
-          new SearchSpecificationForUsers(new SearchCriteria("location", ":", searchVal));
+                new SearchSpecificationForUsers(new SearchCriteria("location", ":", searchVal));
 
         SearchSpecificationForUsers spec2 =
-          new SearchSpecificationForUsers(new SearchCriteria("emailID", ":", searchVal));
+                new SearchSpecificationForUsers(new SearchCriteria("emailID", ":", searchVal));
 
         SearchSpecificationForUsers spec3 =
-          new SearchSpecificationForUsers(new SearchCriteria("firstName", ":", searchVal));
+                new SearchSpecificationForUsers(new SearchCriteria("firstName", ":", searchVal));
 
         SearchSpecificationForUsers spec4 =
-          new SearchSpecificationForUsers(new SearchCriteria("lastName", ":", searchVal));
+                new SearchSpecificationForUsers(new SearchCriteria("lastName", ":", searchVal));
 
         List<User> results =
-          userRepo.findAll(Specification.where(spec1)
-                                        .or(spec2)
-                                        .or(spec3)
-                                        .or(spec4));
+                userRepo.findAll(Specification.where(spec1)
+                                              .or(spec2)
+                                              .or(spec3)
+                                              .or(spec4));
 
         return results.stream()
                       .map(j -> this.modelMapper.map(j, UserDTO.class))

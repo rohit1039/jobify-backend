@@ -53,8 +53,8 @@ public class UserControllerTest {
     public void testLoginSuccess_200() {
 
         when(this.authenticationManager
-               .authenticate(any()))
-          .thenReturn(authentication);
+                     .authenticate(any()))
+                .thenReturn(authentication);
 
         User user = (User) authentication.getPrincipal();
 

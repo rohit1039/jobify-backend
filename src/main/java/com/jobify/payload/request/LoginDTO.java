@@ -13,7 +13,8 @@ import javax.validation.constraints.NotBlank;
 public class LoginDTO {
 
     @NotBlank
-    @Schema(description = "username of the user, should be in lowercase", required = true, example = "rohitparida0599@gmail.com")
+    @Schema(description = "username of the user, should be in lowercase", required = true,
+            example = "rohitparida0599@gmail.com")
     private String emailID;
     @NotBlank
     @Schema(description = "password of the user", required = true, example = "Rohit@7978")

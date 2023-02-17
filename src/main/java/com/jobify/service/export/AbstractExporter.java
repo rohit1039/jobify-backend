@@ -16,7 +16,7 @@ public class AbstractExporter {
      * @throws IOException
      */
     public void setResponseHeader(HttpServletResponse response, String contentType,
-      String extension, String prefix) throws IOException {
+                                  String extension, String prefix) throws IOException {
 
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
         String timestamp = dateFormatter.format(new Date());

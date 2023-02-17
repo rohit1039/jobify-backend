@@ -42,7 +42,7 @@ public class SwaggerConfig {
 
         AuthorizationScope scope = new AuthorizationScope("global", "accessEverything");
 
-        return List.of(new SecurityReference("JWT", new AuthorizationScope[] {scope}));
+        return List.of(new SecurityReference("JWT", new AuthorizationScope[]{scope}));
     }
 
     /**
@@ -57,7 +57,7 @@ public class SwaggerConfig {
                                                       .select()
                                                       .apis(RequestHandlerSelectors.any())
                                                       .apis(RequestHandlerSelectors.basePackage(
-                                                                                     "org.springframework.boot")
+                                                                                           "org.springframework.boot")
                                                                                    .negate()) // remove basic error controller from Swagger UI
                                                       .paths(PathSelectors.any())
                                                       .build();

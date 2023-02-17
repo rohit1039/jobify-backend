@@ -41,9 +41,9 @@ public class JobController {
                description = "A GET request to get job by jobId",
                tags = {"Jobify Job Service"})
     @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "Successfully found job"),
-      @ApiResponse(responseCode = "404", description = "Job not found"),
-      @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
+            @ApiResponse(responseCode = "200", description = "Successfully found job"),
+            @ApiResponse(responseCode = "404", description = "Job not found"),
+            @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
     @GetMapping("/jobs/get/{id}")
     public ResponseEntity<JobApiResponse> getJobById(@PathVariable(value = "id") Integer jobId) {
 
@@ -62,11 +62,12 @@ public class JobController {
                description = "A GET request to search jobs",
                tags = {"Jobify Job Service"})
     @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "Successfully found job"),
-      @ApiResponse(responseCode = "404", description = "Job not found"),
-      @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
+            @ApiResponse(responseCode = "200", description = "Successfully found job"),
+            @ApiResponse(responseCode = "404", description = "Job not found"),
+            @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
     @GetMapping("/jobs/search")
-    public ResponseEntity<Map<String, List<JobApiResponse>>> searchJobBy(@RequestParam(value = "search", required = false) String searchVal) {
+    public ResponseEntity<Map<String, List<JobApiResponse>>> searchJobBy(@RequestParam(value = "search",
+                                                                                       required = false) String searchVal) {
 
         List<JobDTO> jobDTO = this.jobService.searchByAllFields(searchVal);
 
@@ -95,19 +96,32 @@ public class JobController {
                description = "A GET request to get all jobs",
                tags = {"Jobify Job Service"})
     @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "Successfully found jobs"),
-      @ApiResponse(responseCode = "404", description = "Jobs not found"),
-      @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
+            @ApiResponse(responseCode = "200", description = "Successfully found jobs"),
+            @ApiResponse(responseCode = "404", description = "Jobs not found"),
+            @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
     @GetMapping("/jobs/get/all/{userId}")
-    public ResponseEntity<GetAllJobsWithPagination> getAllJobsWithPagination(@RequestParam(required = false, defaultValue = "1",
+    public ResponseEntity<GetAllJobsWithPagination> getAllJobsWithPagination(@RequestParam(required = false,
+                                                                                           defaultValue = "1",
                                                                                            value = "pageNumber") int pageNumber,
-      @RequestParam(required = false, defaultValue = "10", value = "pageSize") int pageSize,
-      @RequestParam(required = false, defaultValue = "jobId", value = "sortBy") String sortByJobId,
-      @RequestParam(required = false, defaultValue = "company", value = "sortBy") String sortByCompany,
-      @RequestParam(required = false, defaultValue = "position", value = "sortBy") String sortByPosition,
-      @RequestParam(required = false, defaultValue = "jobLocation", value = "sortBy") String sortByJobLocation,
-      @RequestParam(required = false, defaultValue = "asc", value = "sortDir") String sortDir,
-      @PathVariable Integer userId) {
+                                                                             @RequestParam(required = false,
+                                                                                           defaultValue = "10",
+                                                                                           value = "pageSize") int pageSize,
+                                                                             @RequestParam(required = false,
+                                                                                           defaultValue = "jobId",
+                                                                                           value = "sortBy") String sortByJobId,
+                                                                             @RequestParam(required = false,
+                                                                                           defaultValue = "company",
+                                                                                           value = "sortBy") String sortByCompany,
+                                                                             @RequestParam(required = false,
+                                                                                           defaultValue = "position",
+                                                                                           value = "sortBy") String sortByPosition,
+                                                                             @RequestParam(required = false,
+                                                                                           defaultValue = "jobLocation",
+                                                                                           value = "sortBy") String sortByJobLocation,
+                                                                             @RequestParam(required = false,
+                                                                                           defaultValue = "asc",
+                                                                                           value = "sortDir") String sortDir,
+                                                                             @PathVariable Integer userId) {
 
         List<JobDTO> jobDTO = this.jobService.getAllJobs(pageNumber,
                                                          pageSize,
@@ -147,9 +161,9 @@ public class JobController {
                description = "A GET request to get jobs by userId with stats",
                tags = {"Jobify Job Service"})
     @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "Successfully found jobs with stats"),
-      @ApiResponse(responseCode = "404", description = "User not found"),
-      @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
+            @ApiResponse(responseCode = "200", description = "Successfully found jobs with stats"),
+            @ApiResponse(responseCode = "404", description = "User not found"),
+            @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
     @GetMapping("/jobs/stats/user/{userId}")
     public ResponseEntity<Map<String, List<StatsResponse>>> getJobsByUserWithStats(@PathVariable Integer userId) {
 
@@ -171,9 +185,9 @@ public class JobController {
                description = "A GET request to get jobs by userId with monthly apps",
                tags = {"Jobify Job Service"})
     @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "Successfully found jobs with monthly apps"),
-      @ApiResponse(responseCode = "404", description = "User not found"),
-      @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
+            @ApiResponse(responseCode = "200", description = "Successfully found jobs with monthly apps"),
+            @ApiResponse(responseCode = "404", description = "User not found"),
+            @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
     @GetMapping("/jobs/monthly-apps/user/{userId}")
     public ResponseEntity<Map<String, List<MonthlyAppResponse>>> getJobsByUserWithMonthlyApplications(@PathVariable Integer userId) {
 
@@ -200,12 +214,12 @@ public class JobController {
                description = "A PUT request to update job",
                tags = {"Jobify Job Service"})
     @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "Successfully updated job"),
-      @ApiResponse(responseCode = "404", description = "Job not found"),
-      @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
+            @ApiResponse(responseCode = "200", description = "Successfully updated job"),
+            @ApiResponse(responseCode = "404", description = "Job not found"),
+            @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
     @PutMapping("/jobs/update/{jobId}/user/{userId}")
     public ResponseEntity<?> updateJobByJobId(@Valid @RequestBody JobDTO jobDTO,
-      @PathVariable Integer jobId, @PathVariable Integer userId) throws Exception {
+                                              @PathVariable Integer jobId, @PathVariable Integer userId) throws Exception {
 
         JobApiResponse apiResponse;
         try {
@@ -232,9 +246,9 @@ public class JobController {
                description = "A GET request to get current user",
                tags = {"Jobify Job Service"})
     @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "User is loggedIn"),
-      @ApiResponse(responseCode = "401", description = "User not loggedIn"),
-      @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
+            @ApiResponse(responseCode = "200", description = "User is loggedIn"),
+            @ApiResponse(responseCode = "401", description = "User not loggedIn"),
+            @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
     @GetMapping("/jobs/current/user")
     public ResponseEntity<Map<String, UserApiResponse>> currentUserName(@AuthenticationPrincipal User user) {
 
@@ -255,9 +269,9 @@ public class JobController {
                description = "A DELETE request to delete job",
                tags = {"Jobify Job Service"})
     @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "Successfully deleted the job"),
-      @ApiResponse(responseCode = "404", description = "Job not found"),
-      @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
+            @ApiResponse(responseCode = "200", description = "Successfully deleted the job"),
+            @ApiResponse(responseCode = "404", description = "Job not found"),
+            @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
     @DeleteMapping("/jobs/delete/{jobId}/user/{userId}")
     public ResponseEntity<?> deleteJobByJobId(@PathVariable Integer jobId, @PathVariable Integer userId) {
 
@@ -281,10 +295,10 @@ public class JobController {
                description = "A POST request to create job by userId",
                tags = {"Jobify Job Service"})
     @ApiResponses(value = {
-      @ApiResponse(responseCode = "201", description = "Successfully created the job"),
-      @ApiResponse(responseCode = "400", description = "Input Validation Failed"),
-      @ApiResponse(responseCode = "401", description = "UnAuthorized"),
-      @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
+            @ApiResponse(responseCode = "201", description = "Successfully created the job"),
+            @ApiResponse(responseCode = "400", description = "Input Validation Failed"),
+            @ApiResponse(responseCode = "401", description = "UnAuthorized"),
+            @ApiResponse(responseCode = "500", description = "Some Exception Occurred")})
     @PostMapping("/jobs/create/{userId}")
     public ResponseEntity<?> createJob(@RequestBody @Valid JobDTO jobDTO, @PathVariable Integer userId) throws Exception {
 

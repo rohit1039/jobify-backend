@@ -39,7 +39,7 @@ public class UserPdfExporter extends AbstractExporter {
         PdfPTable table = new PdfPTable(6);
         table.setWidthPercentage(100f);
         table.setSpacingBefore(20);
-        table.setWidths(new float[] {0.5f, 2.0f, 1.5f, 1.5f, 0.5f, 1.5f});
+        table.setWidths(new float[]{0.5f, 2.0f, 1.5f, 1.5f, 0.5f, 1.5f});
 
         writeTableHeader(table);
         writeTableData(table, listUsers);

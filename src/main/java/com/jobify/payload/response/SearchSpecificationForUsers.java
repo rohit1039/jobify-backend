@@ -19,14 +19,14 @@ public class SearchSpecificationForUsers implements Specification<User> {
 
     @Override
     public Predicate toPredicate
-      (Root<User> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
+            (Root<User> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
 
         if (criteria.getOperation()
                     .equalsIgnoreCase(":")) {
             if (root.get(criteria.getColumn())
                     .getJavaType() == String.class) {
                 return builder.like(
-                  root.get(criteria.getColumn()), "%" + criteria.getValue() + "%");
+                        root.get(criteria.getColumn()), "%" + criteria.getValue() + "%");
             }
         }
         return null;
