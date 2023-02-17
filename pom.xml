@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.jobify</groupId>
-    <artifactId>jobify-app</artifactId>
+    <artifactId>jobify-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>jobify-app</name>
+    <name>jobify-backend</name>
     <description>Jobify with Spring Boot</description>
     <properties>
         <java.version>11</java.version>
