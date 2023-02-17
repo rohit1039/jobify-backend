@@ -50,7 +50,7 @@ public class JobServiceImpl implements JobService {
      * @return
      */
     @Override
-    public JobDTO createJob(JobDTO jobDTO, Integer userId) throws Exception {
+    public JobDTO createJob(JobDTO jobDTO, Integer userId) {
 
         if (userId == 1) {
             return null;
