@@ -1,7 +1,6 @@
 package com.jobify.jobifyapp.controller;
 
 import com.jobify.controller.UserController;
-import com.jobify.entity.User;
 import com.jobify.payload.request.LoginDTO;
 import com.jobify.payload.request.UserDTO;
 import com.jobify.payload.response.JwtAuthResponse;
@@ -53,18 +52,16 @@ public class UserControllerTest {
     public void testLoginSuccess_200() {
 
         when(this.authenticationManager
-                .authenticate(any()))
+                     .authenticate(any()))
                 .thenReturn(authentication);
-
-        User user = (User) authentication.getPrincipal();
 
         when(this.modelMapper.map(any(), any())).thenReturn(userDTO());
 
         JwtAuthResponse jwtAuthResponse = this.userController.userLogin(loginDTO_Success())
-                .getBody();
+                                                             .getBody();
 
         int actualStatusCodeValue = this.userController.userLogin(loginDTO_Success())
-                .getStatusCodeValue();
+                                                       .getStatusCodeValue();
 
         assertNotNull(jwtAuthResponse);
         assertEquals(200, actualStatusCodeValue);
@@ -74,42 +71,34 @@ public class UserControllerTest {
     private UserDTO userDTO() {
 
         return UserDTO.builder()
-                .userID(1)
-                .firstName("Test")
-                .lastName("User")
-                .emailID("testuser@yahoo.com")
-                .password("Test@7978")
-                .build();
+                      .userID(1)
+                      .firstName("Test")
+                      .lastName("User")
+                      .emailID("testuser@yahoo.com")
+                      .password("Test@7978")
+                      .build();
     }
 
     private LoginDTO loginDTO_Success() {
 
         return LoginDTO.builder()
-                .emailID(userDTO().getEmailID())
-                .password(userDTO().getPassword())
-                .build();
-    }
-
-    private LoginDTO loginDTO_Failure() {
-
-        return LoginDTO.builder()
-                .emailID("xyz")
-                .password("xyz")
-                .build();
+                       .emailID(userDTO().getEmailID())
+                       .password(userDTO().getPassword())
+                       .build();
     }
 
     private JwtAuthResponse jwtAuthResponse() {
 
         return JwtAuthResponse.builder()
-                .token("token")
-                .emailID(userDTO().getEmailID())
-                .location(userDTO().getLocation())
-                .age(userDTO().getAge())
-                .userId(userDTO().getUserID())
-                .firstName(userDTO().getFirstName())
-                .lastName(userDTO().getLastName())
-                .fullName(userDTO().getFirstName() + " " + userDTO().getLastName())
-                .build();
+                              .token("token")
+                              .emailID(userDTO().getEmailID())
+                              .location(userDTO().getLocation())
+                              .age(userDTO().getAge())
+                              .userId(userDTO().getUserID())
+                              .firstName(userDTO().getFirstName())
+                              .lastName(userDTO().getLastName())
+                              .fullName(userDTO().getFirstName() + " " + userDTO().getLastName())
+                              .build();
     }
 
 }
